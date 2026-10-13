@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<!-- saved from url=(0064)file:///Users/bdinney/Downloads/OEC_Sea_Snake_Generator_Lab.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OEC Sea Snake Generator Lab</title>
+<style>
+:root{--ink:#17202a;--muted:#5f6b76;--line:#cbd5dc;--bg:#eef5f8;--card:#fff;--blue:#1268a3;--teal:#087f75}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:var(--bg);color:var(--ink)}
+header{background:#123b5d;color:#fff;text-align:center;padding:22px 5%}h1{margin:0 0 5px;font-size:30px}header p{margin:0}
+main{max-width:1100px;margin:20px auto;padding:0 16px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 2px 8px #0001}h2{margin:0 0 12px;font-size:20px}h3{font-size:16px;margin:16px 0 8px}
+.parts{display:grid;grid-template-columns:1fr 1fr;gap:8px}.part{padding:9px;border:1px solid var(--line);border-radius:9px;background:#f8fafb;font-size:14px}.part input{margin-right:7px}
+label{display:block;font-weight:bold;font-size:14px;margin-top:10px}input[type=range],select{width:100%;margin-top:6px}button{border:0;border-radius:9px;padding:11px 15px;font-weight:bold;cursor:pointer;margin:5px 5px 0 0;background:#e7edf2}button.primary{background:var(--blue);color:white}button.green{background:var(--teal);color:white}
+.status{padding:10px;border:1px solid var(--line);border-radius:9px;background:#f7fafc;margin-top:12px;font-size:14px;line-height:1.45}.meter{text-align:center;border:2px solid #273746;border-radius:12px;padding:14px;background:#eef1f3;margin-top:12px}.meter .number{font-size:34px;font-weight:bold}
+svg{width:100%;border:1px solid var(--line);border-radius:10px;background:white}table{width:100%;border-collapse:collapse;margin-top:10px;font-size:13px}th,td{border:1px solid var(--line);padding:7px;text-align:center}th{background:#e9f0f5}td[contenteditable=true]{background:#fffef0;min-width:65px}
+textarea{width:100%;min-height:65px;border:1px solid var(--line);border-radius:8px;padding:8px;font-family:inherit;margin-top:5px}.footer{text-align:center;color:var(--muted);font-size:12px;margin:20px}
+@media(max-width:750px){.grid{grid-template-columns:1fr}.parts{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+<h1>🌊 OEC Sea Snake Generator Engineering Lab</h1>
+<p>8th Grade Science • Ocean Energy Converter • Design • Test • Improve</p>
+</header>
+<main>
+<div class="grid">
+<section class="card">
+<h2>1. Build Your Sea Snake Generator</h2>
+<p>Select the materials you will use to construct the wave-powered generator.</p>
+<div class="parts">
+<label class="part"><input type="checkbox" id="tank">Wave tank with 2 L water</label>
+<label class="part"><input type="checkbox" id="paddle">Paddle</label>
+<label class="part"><input type="checkbox" id="tape">Duct tape</label>
+<label class="part"><input type="checkbox" id="clips">2 alligator clips + wires</label>
+<label class="part"><input type="checkbox" id="wire">10 m magnet wire</label>
+<label class="part"><input type="checkbox" id="magnet">Neodymium magnet</label>
+<label class="part"><input type="checkbox" id="meter">Multimeter + cables</label>
+<label class="part"><input type="checkbox" id="floats">2 square polystyrene floats</label>
+<label class="part"><input type="checkbox" id="pvc">PVC tube</label>
+<label class="part"><input type="checkbox" id="masking">Masking tape</label>
+<label class="part"><input type="checkbox" id="nail">Metal nail</label>
+</div>
+<div id="assembly" class="status">Sea Snake generator assembled! Your design is ready for testing.</div>
+
+<h3>Wave Conditions</h3>
+<label>Wave intensity: <span id="wv">73</span>%</label>
+<input id="wave" type="range" min="0" max="100" value="50">
+<label>Wave frequency: <span id="fv">2.4</span> waves/sec</label>
+<input id="freq" type="range" min=".5" max="3" step=".1" value="1.5">
+
+<h3>Generator Design Variables</h3>
+<label>Float/moving mass</label>
+<select id="mass"><option value="1">Low</option><option value="2" selected="">Medium</option><option value="3">High</option></select>
+<label>Coil turns</label>
+<select id="turns"><option value="50">50 turns</option><option value="100" selected="">100 turns</option><option value="200">200 turns</option></select>
+<label>Motion efficiency</label>
+<select id="motion"><option value="1">Low</option><option value="2" selected="">Medium</option><option value="3">High</option></select>
+<br>
+<button class="primary" onclick="run()">▶ Run Generator</button>
+<button onclick="resetLab()">Reset</button>
+</section>
+
+<section class="card">
+<h2>2. Virtual Wave Tank</h2>
+<svg viewBox="0 0 600 320">
+<rect x="25" y="38" width="550" height="230" rx="14" fill="none" stroke="#687781" stroke-width="2"></rect>
+<path id="water" fill="#4b9dcc" opacity=".30" d="M30 155 L30 192.00430780342208 L40 193.4845539070483 L50 190.10801083332342 L60 182.30080169379642 L70 171.0482040869959 L80 157.770307080496 L90 144.1427945508741 L100 131.88547220323494 L110 122.54522637190561 L120 117.30080541855261 L130 116.81406051050956 L140 121.14641934178616 L150 129.75113389667382 L160 141.54228059592384 L170 155.03180493809884 L180 168.5173154652893 L190 180.29692726705287 L200 188.88404155753722 L210 193.19495592846644 L220 192.68562867646227 L230 187.42033740992133 L240 178.06356715056356 L250 165.79615165939364 L260 152.16625103553832 L270 138.8939723639946 L280 127.65429048183904 L290 119.86566447928577 L300 116.51102674440442 L310 118.0137359130772 L320 124.18414858591137 L330 134.24355251482956 L340 146.92244086727916 L350 160.6207252576849 L360 173.60966850134582 L370 184.25005297543285 L380 191.19905152177853 L390 193.57969357668645 L400 191.09153973282068 L410 184.04859749276963 L420 173.33969320828567 L430 160.31630130611805 L440 146.62198686424034 L450 133.98498605586803 L460 124.00010101664982 L470 117.92743422075489 L480 116.53336228887072 L490 119.99381849250005 L500 127.87208979921357 L510 139.17393049393152 L520 152.47303698216368 L530 166.0910487295353 L540 178.30935903915125 L550 187.58600493488663 L560 192.75026443053576 L570 193.15040281486313 L570 260 L30 260 Z"></path>
+<line x1="40" y1="258" x2="560" y2="258" stroke="#687781" stroke-width="2"></line>
+<!-- floating Sea Snake -->
+<rect id="float1" x="190" y="149.92857742861278" width="50" height="28" rx="4" fill="#d7e2e8" stroke="#34495e" stroke-width="2"></rect>
+<rect id="float2" x="360" y="149.92857742861278" width="50" height="28" rx="4" fill="#d7e2e8" stroke="#34495e" stroke-width="2"></rect>
+<line id="pvcLine" x1="215" y1="163.92857742861278" x2="385" y2="163.92857742861278" stroke="#34495e" stroke-width="10"></line>
+<line x1="215" y1="159" x2="215" y2="110" stroke="#34495e" stroke-width="3"></line>
+<line x1="385" y1="159" x2="385" y2="110" stroke="#34495e" stroke-width="3"></line>
+<circle id="mag" cx="300" cy="137.45000420002893" r="13" fill="#34495e"></circle>
+<path d="M270 100 Q260 110 270 120 T270 140 T270 160 T270 180 M330 100 Q340 110 330 120 T330 140 T330 160 T330 180" fill="none" stroke="#a65e1f" stroke-width="4"></path>
+<line x1="270" y1="100" x2="235" y2="70" stroke="#34495e" stroke-width="3"></line>
+<line x1="330" y1="100" x2="365" y2="70" stroke="#34495e" stroke-width="3"></line>
+<text x="300" y="295" text-anchor="middle" font-size="15">2 L wave tank • floating OEC • magnet + coil</text>
+</svg>
+<div class="meter">
+<div>VIRTUAL MULTIMETER</div>
+<div class="number" id="voltage">7.87 V</div>
+<div id="output">Electrical output: 6.19 units</div>
+</div>
+<div id="feedback" class="status">The waves move the floating structure. That motion causes the magnet to move relative to the coil, changing the magnetic field and inducing voltage.</div>
+</section>
+</div>
+
+<section class="card" style="margin-top:18px">
+<h2>3. Record Your Engineering Data</h2>
+<p>Change <strong>one variable at a time</strong>. Record the conditions and voltage for each trial.</p>
+<table>
+<thead><tr><th>Trial</th><th>Wave %</th><th>Frequency</th><th>Mass</th><th>Turns</th><th>Efficiency</th><th>Voltage</th></tr></thead>
+<tbody id="data">
+<tr><td>1</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+<tr><td>2</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+<tr><td>3</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+<tr><td>4</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+<tr><td>5</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+</tbody>
+</table>
+<button class="green" onclick="addTrial()">+ Add Trial</button>
+</section>
+
+<section class="card" style="margin-top:18px">
+<h2>4. Engineering Analysis</h2>
+<label>1. What happened to voltage when wave intensity increased?</label><textarea></textarea>
+<label>2. What happened when you increased the number of coil turns?</label><textarea></textarea>
+<label>3. How does wave motion cause the magnet and coil to interact?</label><textarea></textarea>
+<label>4. Which design produced your greatest voltage? Use evidence from your data.</label><textarea></textarea>
+<label>5. What change would you make to improve a real ocean energy converter?</label><textarea></textarea>
+</section>
+
+<div class="footer">This model represents the classroom relationship between mechanical wave motion, changing magnetic fields, and induced electrical voltage.</div>
+</main>
+
+<script>
+let timer;
+const $=id=>document.getElementById(id);
+function updateLabels(){$('wv').textContent=$('wave').value;$('fv').textContent=Number($('freq').value).toFixed(1)}
+$('wave').oninput=updateLabels;$('freq').oninput=updateLabels;
+
+function calc(){
+ const essential=['tank','paddle','clips','wire','magnet','meter','floats','pvc','nail'];
+ const missing=essential.filter(x=>!$(x).checked);
+ if(missing.length)return {missing};
+ let w=+$('wave').value/100,f=+$('freq').value,t=+$('turns').value/100,m=+$('mass').value,mo=+$('motion').value;
+ let v=4.5*w*f*t*mo/(.55+.18*m);
+ if($('tape').checked)v*=1.04;
+ if($('masking').checked)v*=1.02;
+ return {v:Math.max(0,v)};
+}
+function run(){
+ const r=calc();
+ if(r.missing){
+  $('voltage').textContent='0.00 V';$('output').textContent='Electrical output: 0.00 units';
+  $('assembly').textContent='Your Sea Snake needs the wave tank, paddle, alligator clips, magnet wire, neodymium magnet, multimeter, 2 floats, PVC tube, and metal nail.';
+  $('feedback').textContent='Complete the basic generator assembly before testing.';
+  return;
+ }
+ $('assembly').textContent='Sea Snake generator assembled! Your design is ready for testing.';
+ $('voltage').textContent=r.v.toFixed(2)+' V';
+ $('output').textContent='Electrical output: '+(r.v*r.v/10).toFixed(2)+' units';
+ $('feedback').textContent='The waves move the floating structure. That motion causes the magnet to move relative to the coil, changing the magnetic field and inducing voltage.';
+ animate();
+}
+function animate(){
+ clearInterval(timer);let phase=0;
+ timer=setInterval(()=>{
+  phase+=.22;let amp=5 + +$('wave').value*.46,f=+$('freq').value;
+  let d='M30 155 ';
+  for(let x=30;x<=570;x+=10)d+='L'+x+' '+(155+Math.sin(x/28+phase*f)*amp)+' ';
+  d+='L570 260 L30 260 Z';$('water').setAttribute('d',d);
+  let s=Math.sin(phase*f)*Math.min(35,+$('wave').value*.32);
+  $('float1').setAttribute('y',145+s);$('float2').setAttribute('y',145+s);
+  $('pvcLine').setAttribute('y1',159+s);$('pvcLine').setAttribute('y2',159+s);
+  $('mag').setAttribute('cy',134+s*.7);
+ },70);
+}
+function addTrial(){
+ const n=$('data').rows.length+1,tr=document.createElement('tr');
+ tr.innerHTML='<td>'+n+'</td>'+Array(6).fill('<td contenteditable="true"></td>').join('');
+ $('data').appendChild(tr);
+}
+function resetLab(){
+ clearInterval(timer);document.querySelectorAll('input[type=checkbox]').forEach(x=>x.checked=false);
+ $('wave').value=50;$('freq').value=1.5;$('mass').value=2;$('turns').value=100;$('motion').value=2;
+ updateLabels();$('voltage').textContent='0.00 V';$('output').textContent='Electrical output: 0.00 units';
+ $('assembly').textContent='Select the materials, then test your design.';
+ $('feedback').textContent='Build the circuit and press Run Generator.';
+}
+updateLabels();
+</script>
+
+</body></html>
